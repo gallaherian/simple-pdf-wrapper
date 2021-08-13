@@ -1,0 +1,75 @@
+﻿<Window x:Class="PDFTools.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PDFTools.Views"
+        mc:Ignorable="d"
+        Title="PDF Tool" MinHeight="260" Height="260" MinWidth="500" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
+        <TabControl Grid.ColumnSpan="3">
+            <TabItem Header="Delete Pages" IsSelected="{Binding IsDeleteSelected}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Pages to Delete:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="Pages" Grid.Column="1" VerticalAlignment="Center" BorderBrush="Transparent" ToolTip="Enter the page numbers to be deleted from the PDF. Separate with a space or comma." Grid.ColumnSpan="2"/>
+
+                    <Label Content="Old PDF:" Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="DeleteOldPDF" Grid.Row="1" Grid.Column="1" BorderBrush="Transparent" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                    <Button x:Name="SelectDeleteOldPDF" Grid.Row="1" Grid.Column="3" ToolTip="Select the file to delete pages from">
+                        <Image Source="{Binding FolderIcon}"/>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Combine PDFs" IsSelected="{Binding IsCombineSelected}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView ItemsSource="{Binding CombineList}" SelectedItem="{Binding CombineSelectedItem}" Grid.RowSpan="4"/>
+                    <Button x:Name="CombineAdd" Content="+" Grid.Column="1" Grid.Row="0" FontSize="16" FontWeight="Bold"/>
+                    <Button x:Name="CombineRemove" Content="-" Grid.Column="1" Grid.Row="1" FontSize="16" FontWeight="Bold"/>
+                    <Button x:Name="CombineUp" Content="↑" Grid.Column="1" Grid.Row="2" FontSize="16" FontWeight="Bold"/>
+                    <Button x:Name="CombineDown" Content="↓" Grid.Column="1" Grid.Row="3" FontSize="16" FontWeight="Bold"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Background="{Binding Status}" Grid.Row="2" Grid.ColumnSpan="3"/>
+        <Label Content="New PDF: " Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold"/>
+        <TextBox x:Name="SavePDF" Grid.Row="1" Grid.Column="1" BorderBrush="Transparent" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+        <Button x:Name="SelectSavePDF" Grid.Row="1" Grid.Column="3" ToolTip="Select the new file name">
+            <Image Source="{Binding FolderIcon}"/>
+        </Button>
+        <Button x:Name="Run" Content="{Binding RunString}" Grid.Row="3" FontWeight="Bold" FontSize="18" Grid.ColumnSpan="3"/>
+    </Grid>
+</Window>
